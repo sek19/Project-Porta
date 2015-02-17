@@ -1,0 +1,22 @@
+print "Starting maya loading and fbx conversion \n";
+			
+if (`file -q -exists "C:/Users/sek19/Desktop/Comic/Assets/CHARAC~1/panel2/crab/NEW_PR~1/scenes/CRAB_P~3.MB"`)
+{
+	file -o "C:/Users/sek19/Desktop/Comic/Assets/CHARAC~1/panel2/crab/NEW_PR~1/scenes/CRAB_P~3.MB";
+	FBXExportEmbeddedTextures -v false;
+	// FBXExportHardEdges -v true;
+	FBXExportApplyConstantKeyReducer -v false;
+	FBXExportShowUI -v false;
+
+	print "Before fbx export\n";
+	FBXExport -f "C:/Users/sek19/Desktop/Comic/Temp/ExportedFBXFile.fbx";
+	print "after fbx export\n";
+}
+else
+	print "Could not open Maya file.";
+
+system ("del \"C:\\Users\\sek19\\Desktop\\Comic\\Temp\\CommandPipe\"");
+
+$donepipeKill = `fopen "C:/Users/sek19/Desktop/Comic/Temp/SyncPipeKill" "w"`;
+fwrite $donepipeKill "Done";
+fclose $donepipeKill;
